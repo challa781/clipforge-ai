@@ -4,285 +4,617 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ClipForge AI</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#08090d;color:#f7f7fb;font-family:Arial,sans-serif}
-nav{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;border-bottom:1px solid #242733}
-.logo{font-size:21px;font-weight:800}.logo span{color:#8b5cf6}
-nav a{color:#aaa;text-decoration:none;margin:0 10px}
-.hero{text-align:center;padding:75px 20px 35px}
-.pill{display:inline-block;padding:9px 14px;border:1px solid #333;border-radius:30px;color:#aaa}
-h1{font-size:clamp(38px,7vw,76px);margin:20px 0 12px}
-.gradient{background:linear-gradient(90deg,#8b5cf6,#22d3ee);color:transparent;background-clip:text}
-.hero p{color:#999;font-size:17px;max-width:650px;margin:auto;line-height:1.6}
-.app{max-width:1000px;margin:30px auto;padding:20px}
-.box{background:#11131a;border:1px solid #292d39;border-radius:20px;padding:25px}
-.drop{border:2px dashed #393e4c;border-radius:16px;padding:45px 20px;text-align:center}
+body{
+  margin:0;
+  background:#08090d;
+  color:#f7f7fb;
+  font-family:Arial,sans-serif
+}
+nav{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+  border-bottom:1px solid #242733
+}
+.logo{
+  font-size:21px;
+  font-weight:800
+}
+.logo span{color:#8b5cf6}
+nav a{
+  color:#aaa;
+  text-decoration:none;
+  margin-left:15px
+}
+.hero{
+  text-align:center;
+  padding:65px 20px 30px
+}
+.pill{
+  display:inline-block;
+  padding:9px 14px;
+  border:1px solid #333;
+  border-radius:30px;
+  color:#aaa
+}
+h1{
+  font-size:clamp(38px,7vw,76px);
+  margin:20px 0 12px
+}
+.gradient{
+  background:linear-gradient(90deg,#8b5cf6,#22d3ee);
+  color:transparent;
+  background-clip:text
+}
+.hero p{
+  color:#999;
+  font-size:17px;
+  max-width:650px;
+  margin:auto;
+  line-height:1.6
+}
+.app{
+  max-width:1000px;
+  margin:30px auto;
+  padding:20px
+}
+.box{
+  background:#11131a;
+  border:1px solid #292d39;
+  border-radius:20px;
+  padding:25px
+}
+.drop{
+  border:2px dashed #393e4c;
+  border-radius:16px;
+  padding:45px 20px;
+  text-align:center
+}
 .drop h2{margin:10px 0}
 .drop p{color:#888}
-button,select{border:0;border-radius:10px;padding:13px 18px;font-size:15px}
+button,select{
+  border:0;
+  border-radius:10px;
+  padding:13px 18px;
+  font-size:15px
+}
 button{cursor:pointer}
-.primary{background:#8b5cf6;color:white;font-weight:bold}
+.primary{
+  background:#8b5cf6;
+  color:white;
+  font-weight:bold
+}
 button:disabled{opacity:.5}
-.controls{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
-.control{background:#181a22;padding:15px;border-radius:12px}
-label{display:block;color:#999;font-size:12px;margin-bottom:8px}
-select{width:100%;background:#252936;color:white}
+.controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:20px
+}
+.control{
+  background:#181a22;
+  padding:15px;
+  border-radius:12px
+}
+label{
+  display:block;
+  color:#999;
+  font-size:12px;
+  margin-bottom:8px
+}
+select{
+  width:100%;
+  background:#252936;
+  color:white
+}
 .files{margin-top:18px}
-.file{background:#181a22;padding:12px;border-radius:10px;margin:7px 0;color:#ddd}
-.status{margin-top:20px;color:#aaa;text-align:center}
-.progress{height:8px;background:#252936;border-radius:20px;margin-top:12px;overflow:hidden}
-.bar{height:100%;width:0;background:linear-gradient(90deg,#8b5cf6,#22d3ee)}
-.result{display:none;margin-top:25px;text-align:center}
-.result video{width:100%;max-height:500px;border-radius:15px;background:#000}
-.result a{display:inline-block;margin-top:15px;color:white;text-decoration:none;background:#22c55e;padding:13px 20px;border-radius:10px}
-@media(max-width:650px){.controls{grid-template-columns:1fr}nav a{display:none}}
+.file{
+  background:#181a22;
+  padding:12px;
+  border-radius:10px;
+  margin:7px 0;
+  color:#ddd
+}
+.status{
+  margin-top:20px;
+  color:#aaa;
+  text-align:center
+}
+.progress{
+  height:8px;
+  background:#252936;
+  border-radius:20px;
+  margin-top:12px;
+  overflow:hidden
+}
+.bar{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#8b5cf6,#22d3ee);
+  transition:width .3s
+}
+.actions{
+  text-align:center;
+  margin-top:20px
+}
+.result{
+  display:none;
+  margin-top:25px;
+  text-align:center
+}
+.result video{
+  width:100%;
+  max-height:500px;
+  border-radius:15px;
+  background:#000
+}
+.result a{
+  display:inline-block;
+  margin-top:15px;
+  color:white;
+  text-decoration:none;
+  background:#22c55e;
+  padding:13px 20px;
+  border-radius:10px;
+  font-weight:bold
+}
+.note{
+  color:#777;
+  font-size:12px;
+  text-align:center;
+  margin-top:15px
+}
+@media(max-width:650px){
+  .controls{grid-template-columns:1fr}
+  nav a{display:none}
+}
 </style>
 </head>
 
 <body>
 
 <nav>
-<div class="logo">Clip<span>Forge</span> AI</div>
-<div>
-<a href="#creator">Create</a>
-<a href="#features">Features</a>
-</div>
+  <div class="logo">Clip<span>Forge</span> AI</div>
+  <div>
+    <a href="#creator">Create</a>
+    <a href="#features">Features</a>
+  </div>
 </nav>
 
 <section class="hero">
-<div class="pill">✦ AI VIDEO CREATOR</div>
-<h1>Drop your clips.<br><span class="gradient">Get a finished video.</span></h1>
-<p>Upload your raw clips and ClipForge AI will combine them into a polished MP4.</p>
+  <div class="pill">✦ AI VIDEO CREATOR</div>
+  <h1>
+    Drop your clips.<br>
+    <span class="gradient">Get a finished video.</span>
+  </h1>
+  <p>
+    Upload your raw clips and ClipForge AI will combine them
+    into a polished MP4 video.
+  </p>
 </section>
 
 <section class="app" id="creator">
 <div class="box">
 
-<div class="drop" id="drop">
-<div style="font-size:42px">⬆️</div>
-<h2>Drop your clips here</h2>
-<p>MP4, MOV, WebM • Multiple videos supported</p>
-<input id="picker" type="file" accept="video/*" multiple hidden>
-<button class="primary" onclick="picker.click()">Choose videos</button>
+<div class="drop">
+  <div style="font-size:42px">🎬</div>
+  <h2>Drop your clips here</h2>
+  <p>MP4, MOV, WebM · Multiple videos supported</p>
+
+  <input
+    id="picker"
+    type="file"
+    accept="video/*"
+    multiple
+    hidden
+  >
+
+  <button class="primary" onclick="document.getElementById('picker').click()">
+    Choose Videos
+  </button>
 </div>
 
 <div class="files" id="files"></div>
 
 <div class="controls">
-<div class="control">
-<label>VIDEO STYLE</label>
-<select id="style">
-<option>Cinematic</option>
-<option>Fast & Trending</option>
-<option>Sports Highlight</option>
-<option>Travel Reel</option>
-<option>Clean Social</option>
-</select>
+
+  <div class="control">
+    <label>VIDEO STYLE</label>
+    <select id="style">
+      <option>Cinematic</option>
+      <option>Fast & Trending</option>
+      <option>Sports Highlight</option>
+      <option>Travel Reel</option>
+      <option>Clean Social</option>
+    </select>
+  </div>
+
+  <div class="control">
+    <label>VIDEO FORMAT</label>
+    <select id="format">
+      <option value="9:16">9:16 · Shorts / Reels</option>
+      <option value="16:9">16:9 · YouTube</option>
+      <option value="1:1">1:1 · Square</option>
+    </select>
+  </div>
+
 </div>
 
-<div class="control">
-<label>FORMAT</label>
-<select id="format">
-<option value="9:16">9:16 Reels / Shorts</option>
-<option value="16:9">16:9 YouTube</option>
-<option value="1:1">1:1 Square</option>
-</select>
-</div>
+<div class="actions">
+  <button
+    id="createBtn"
+    class="primary"
+    onclick="createVideo()"
+  >
+    ✨ Create My Video
+  </button>
 </div>
 
-<br>
-<button class="primary" id="create" onclick="createVideo()" style="width:100%">
-✨ Create video with AI
-</button>
+<div class="status" id="status">
+  Ready — upload your clips to begin.
+</div>
 
-<div class="status" id="status">Ready — upload your clips</div>
-<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="progress">
+  <div class="bar" id="bar"></div>
+</div>
 
 <div class="result" id="result">
-<h2>🎉 Your video is ready!</h2>
-<video id="video" controls></video>
-<br>
-<a id="download" target="_blank">⬇️ Open / Download MP4</a>
+  <h2>🎉 Your video is ready!</h2>
+
+  <video id="video" controls playsinline></video>
+
+  <br>
+
+  <a id="download" target="_blank">
+    ⬇ Download MP4
+  </a>
+
+  <div class="note">
+    This is currently using Shotstack Stage rendering.
+  </div>
 </div>
 
-</div>
-</section>
-
-<section class="app" id="features">
-<div class="box">
-<h2>Why ClipForge AI?</h2>
-<p>⚡ Smart clip processing</p>
-<p>🎬 Automatic video stitching</p>
-<p>📱 Reels, Shorts and YouTube formats</p>
-<p>🚀 Real MP4 rendering powered by Shotstack</p>
 </div>
 </section>
 
 <script>
-const picker=document.getElementById("picker");
-const drop=document.getElementById("drop");
-const filesBox=document.getElementById("files");
-const statusBox=document.getElementById("status");
-const bar=document.getElementById("bar");
-const createBtn=document.getElementById("create");
-const result=document.getElementById("result");
-const video=document.getElementById("video");
-const download=document.getElementById("download");
 
-let files=[];
+let selectedFiles = [];
 
-picker.onchange=e=>addFiles([...e.target.files]);
+const picker = document.getElementById("picker");
+const filesBox = document.getElementById("files");
+const createBtn = document.getElementById("createBtn");
+const statusBox = document.getElementById("status");
+const bar = document.getElementById("bar");
+const result = document.getElementById("result");
+const video = document.getElementById("video");
+const download = document.getElementById("download");
 
-drop.ondragover=e=>{
- e.preventDefault();
- drop.style.borderColor="#8b5cf6";
-};
+picker.addEventListener("change", function(){
 
-drop.ondragleave=()=>{
- drop.style.borderColor="#393e4c";
-};
+  selectedFiles = Array.from(this.files);
 
-drop.ondrop=e=>{
- e.preventDefault();
- drop.style.borderColor="#393e4c";
- addFiles([...e.dataTransfer.files].filter(f=>f.type.startsWith("video/")));
-};
+  filesBox.innerHTML = "";
 
-function addFiles(newFiles){
- files=[...files,...newFiles].filter(f=>f.type.startsWith("video/"));
- filesBox.innerHTML=files.map((f,i)=>
-   `<div class="file">🎬 ${i+1}. ${f.name}</div>`
- ).join("");
-}
+  selectedFiles.forEach((file,index)=>{
 
-function setProgress(percent,text){
- bar.style.width=percent+"%";
- statusBox.textContent=text;
+    const div = document.createElement("div");
+
+    div.className = "file";
+
+    div.textContent =
+      "🎥 " + (index + 1) + ". " +
+      file.name +
+      " · " +
+      (file.size / 1024 / 1024).toFixed(1) +
+      " MB";
+
+    filesBox.appendChild(div);
+
+  });
+
+  statusBox.textContent =
+    selectedFiles.length +
+    " video" +
+    (selectedFiles.length === 1 ? "" : "s") +
+    " selected.";
+
+});
+
+function setProgress(value,text){
+
+  bar.style.width = value + "%";
+
+  statusBox.textContent = text;
+
 }
 
 async function uploadFile(file,index,total){
- setProgress(Math.round((index/total)*45),"Uploading "+file.name+"...");
 
- const r=await fetch("/api/upload-url",{method:"POST"});
- const data=await r.json();
+  setProgress(
+    Math.round((index / total) * 45),
+    "Preparing upload " + (index + 1) + " of " + total + "..."
+  );
 
- if(!r.ok) throw new Error(data.error||"Could not create upload URL");
+  const uploadResponse = await fetch("/api/upload-url",{
+    method:"POST"
+  });
 
- const sourceId=data.data.id;
- const uploadUrl=data.data.attributes.url;
+  const uploadData = await uploadResponse.json();
 
- const upload=await fetch(uploadUrl,{
-   method:"PUT",
-   body:file
- });
+  if(!uploadResponse.ok){
 
- if(!upload.ok) throw new Error("Video upload failed");
+    throw new Error(
+      uploadData.error || "Could not create upload URL"
+    );
 
- for(let i=0;i<60;i++){
-   const s=await fetch("/api/source-status?id="+encodeURIComponent(sourceId));
-   const sd=await s.json();
+  }
 
-   if(!s.ok) throw new Error(sd.error||"Could not check upload");
+  const uploadUrl =
+    uploadData.data.attributes.url;
 
-   const attrs=sd.data.attributes;
+  const sourceId =
+    uploadData.data.id ||
+    uploadData.data.attributes.id;
 
-   if(attrs.status==="ready"){
-     return attrs.source;
-   }
+  setProgress(
+    Math.round((index / total) * 45 + 5),
+    "Uploading " + file.name + "..."
+  );
 
-   if(attrs.status==="failed"){
-     throw new Error("Shotstack could not process "+file.name);
-   }
+  const putResponse = await fetch(uploadUrl,{
+    method:"PUT",
+    body:file
+  });
 
-   setProgress(
-     45+Math.round((i/60)*15),
-     "Preparing "+file.name+"..."
-   );
+  if(!putResponse.ok){
 
-   await new Promise(resolve=>setTimeout(resolve,2000));
- }
+    throw new Error(
+      "Upload failed for " + file.name
+    );
 
- throw new Error("Upload took too long");
+  }
+
+  for(let attempt=0;attempt<90;attempt++){
+
+    await new Promise(resolve =>
+      setTimeout(resolve,2000)
+    );
+
+    const statusResponse = await fetch(
+      "/api/source-status?id=" +
+      encodeURIComponent(sourceId)
+    );
+
+    const statusData =
+      await statusResponse.json();
+
+    if(!statusResponse.ok){
+
+      throw new Error(
+        statusData.error ||
+        "Could not check uploaded video"
+      );
+
+    }
+
+    const source =
+      statusData.data.attributes;
+
+    if(source.status === "ready"){
+
+      return source.source;
+
+    }
+
+    if(source.status === "failed"){
+
+      throw new Error(
+        "Shotstack could not process " +
+        file.name
+      );
+
+    }
+
+    setProgress(
+      Math.min(
+        60,
+        Math.round(
+          ((index + 1) / total) * 45
+        )
+      ),
+      "Processing " + file.name + "..."
+    );
+
+  }
+
+  throw new Error(
+    "Upload took too long."
+  );
+
 }
 
 async function createVideo(){
- if(!files.length){
-   alert("Please upload at least one video.");
-   return;
- }
 
- createBtn.disabled=true;
- result.style.display="none";
+  if(!selectedFiles.length){
 
- try{
-   const sources=[];
+    alert("Please upload at least one video.");
 
-   for(let i=0;i<files.length;i++){
-     const source=await uploadFile(files[i],i,files.length);
-     sources.push(source);
-   }
+    return;
 
-   setProgress(65,"Building your video...");
+  }
 
-   const renderResponse=await fetch("/api/render",{
-     method:"POST",
-     headers:{"Content-Type":"application/json"},
-     body:JSON.stringify({
-       sources:sources,
-       format:document.getElementById("format").value,
-       style:document.getElementById("style").value
-     })
-   });
+  createBtn.disabled = true;
+  result.style.display = "none";
 
-   const renderData=await renderResponse.json();
+  try{
 
-   if(!renderResponse.ok){
-     throw new Error(renderData.error||"Could not start render");
-   }
+    const sources = [];
 
-   const renderId=renderData.response.id;
+    for(
+      let i=0;
+      i<selectedFiles.length;
+      i++
+    ){
 
-   for(let i=0;i<90;i++){
-     const r=await fetch(
-       "/api/render-status?id="+encodeURIComponent(renderId)
-     );
+      const source =
+        await uploadFile(
+          selectedFiles[i],
+          i,
+          selectedFiles.length
+        );
 
-     const rd=await r.json();
+      sources.push(source);
 
-     if(!r.ok) throw new Error(rd.error||"Could not check render");
+    }
 
-     const response=rd.response;
+    setProgress(
+      65,
+      "Building your video..."
+    );
 
-     if(response.status==="done"){
-       setProgress(100,"Video complete!");
-       video.src=response.url;
-       download.href=response.url;
-       result.style.display="block";
-       return;
-     }
+    const renderResponse =
+      await fetch("/api/render",{
 
-     if(response.status==="failed"){
-       throw new Error("Video rendering failed");
-     }
+        method:"POST",
 
-     setProgress(
-       65+Math.round((i/90)*35),
-       "Rendering video... "+response.status
-     );
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
 
-     await new Promise(resolve=>setTimeout(resolve,3000));
-   }
+        body:JSON.stringify({
 
-   throw new Error("Rendering took too long");
+          sources:sources,
 
- }catch(error){
-   statusBox.textContent="❌ "+error.message;
-   bar.style.width="0";
- }finally{
-   createBtn.disabled=false;
- }
+          format:
+            document.getElementById(
+              "format"
+            ).value,
+
+          style:
+            document.getElementById(
+              "style"
+            ).value
+
+        })
+
+      });
+
+    const renderData =
+      await renderResponse.json();
+
+    if(!renderResponse.ok){
+
+      throw new Error(
+        renderData.error ||
+        "Could not start render"
+      );
+
+    }
+
+    const renderId =
+      renderData.response.id;
+
+    setProgress(
+      70,
+      "Rendering your video..."
+    );
+
+    for(
+      let i=0;
+      i<90;
+      i++
+    ){
+
+      await new Promise(resolve =>
+        setTimeout(resolve,3000)
+      );
+
+      const response =
+        await fetch(
+          "/api/render-status?id=" +
+          encodeURIComponent(renderId)
+        );
+
+      const data =
+        await response.json();
+
+      if(!response.ok){
+
+        throw new Error(
+          data.error ||
+          "Could not check render"
+        );
+
+      }
+
+      const render =
+        data.response;
+
+      if(render.status === "done"){
+
+        setProgress(
+          100,
+          "Video complete! 🎉"
+        );
+
+        video.src =
+          render.url;
+
+        download.href =
+          render.url;
+
+        result.style.display =
+          "block";
+
+        return;
+
+      }
+
+      if(render.status === "failed"){
+
+        throw new Error(
+          "Video rendering failed."
+        );
+
+      }
+
+      setProgress(
+        Math.min(
+          95,
+          70 + Math.round((i / 90) * 25)
+        ),
+        "Rendering video... " +
+        render.status
+      );
+
+    }
+
+    throw new Error(
+      "Rendering took too long."
+    );
+
+  }catch(error){
+
+    statusBox.textContent =
+      "❌ " + error.message;
+
+    bar.style.width = "0";
+
+  }finally{
+
+    createBtn.disabled = false;
+
+  }
+
 }
+
 </script>
 
 </body>
