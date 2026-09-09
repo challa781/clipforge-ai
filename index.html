@@ -295,7 +295,29 @@ const result = document.getElementById("result");
 const video = document.getElementById("video");
 const download = document.getElementById("download");
 
-picker.addEventListener("change", function(){
+picker.addEventListener("change", async function(){
+    selectedFiles = Array.from(this.files);
+
+  for (const file of selectedFiles) {
+    const videoCheck = document.createElement("video");
+    videoCheck.preload = "metadata";
+
+    const duration = await new Promise((resolve) => {
+      videoCheck.onloadedmetadata = () => resolve(videoCheck.duration);
+      videoCheck.src = URL.createObjectURL(file);
+    });
+
+    URL.revokeObjectURL(videoCheck.src);
+
+    if (duration > 60) {
+      alert("❌ " + file.name + " is longer than 60 seconds. Please choose a video up to 1 minute.");
+      this.value = "";
+      selectedFiles = [];
+      filesBox.innerHTML = "";
+      statusBox.textContent = "Please choose videos up to 60 seconds.";
+      return;
+    }
+  }
 
   selectedFiles = Array.from(this.files);
 
